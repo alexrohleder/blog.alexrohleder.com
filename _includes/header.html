@@ -4,7 +4,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="author" content="Alex Rohleder">
 
-	<title>{{ site.title }} > Blog</title>
+	<title>{{ page.title || site.title }}</title>
 
 	{% if page.id %}
 		<meta property="og:type" content="article">

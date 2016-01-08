@@ -1489,11 +1489,11 @@
 
 		a:hover {
 			border-bottom-color: transparent;
-			color: #2ebaae !important;
+			color: #00BCD4 !important;
 		}
 
 			a:hover:before {
-				color: #2ebaae !important;
+				color: #00BCD4 !important;
 			}
 
 	strong, b {
@@ -1730,8 +1730,8 @@
 		input[type="button"]:hover,
 		button:hover,
 		.button:hover {
-			box-shadow: inset 0 0 0 1px #2ebaae;
-			color: #2ebaae !important;
+			box-shadow: inset 0 0 0 1px #00BCD4;
+			color: #00BCD4 !important;
 		}
 
 			input[type="submit"]:hover:active,
@@ -1910,8 +1910,8 @@
 		input[type="tel"]:focus,
 		select:focus,
 		textarea:focus {
-			border-color: #2ebaae;
-			box-shadow: inset 0 0 0 1px #2ebaae;
+			border-color: #00BCD4;
+			box-shadow: inset 0 0 0 1px #00BCD4;
 		}
 
 	.select-wrapper {
@@ -2020,8 +2020,8 @@
 
 		input[type="checkbox"]:focus + label:before,
 		input[type="radio"]:focus + label:before {
-			border-color: #2ebaae;
-			box-shadow: 0 0 0 1px #2ebaae;
+			border-color: #00BCD4;
+			box-shadow: 0 0 0 1px #00BCD4;
 		}
 
 	input[type="radio"] + label:before {
@@ -3408,7 +3408,7 @@
 					}
 
 					#menu .links > li a:hover h3 {
-						color: #2ebaae;
+						color: #00BCD4;
 					}
 
 				#menu .links > li:first-child {

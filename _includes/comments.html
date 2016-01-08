@@ -1,20 +1,15 @@
 {% if page.comments %}
     <aside id="comments" class="disqus">
-
-        <div class="container">
-            <h3><i class="icon icon-comments-o"></i> Comentários</h3>
-            <div id="disqus_thread"></div>
-            <script>
-                (function() {
-                    var d = document, s = d.createElement('script');
-                    s.src = '//alexrohlederblog.disqus.com/embed.js';
-                    s.setAttribute('data-timestamp', +new Date());
-                    (d.head || d.body).appendChild(s);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-            <br> <br>
-        </div>
-
+        <div id="disqus_thread"></div>
+        <script>
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = '//alexrohlederblog.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
     </aside>
+    <br> <br>
 {% endif %}
