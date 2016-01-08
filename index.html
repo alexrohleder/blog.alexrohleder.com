@@ -11,7 +11,7 @@ layout: main
         </div>
         <div class="meta">
             <time class="published" datetime="{{ post.date | date: "%F" }}">{{ post.date | date: "%d/%m/%Y" }}</time>
-            {% for category in post.categories limit:1 %} <a href="#">{{ category }}</a>&nbps; {% endfor %}
+            {% for category in post.categories limit:1 %} <a href="#">{{ category }}</a> {% endfor %}
             <!-- <a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a> -->
         </div>
     </header>
