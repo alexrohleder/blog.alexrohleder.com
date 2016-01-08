@@ -10,7 +10,7 @@ baseurl: ""
 url: "https://blog.alexrohleder.com.br"
 twitter_username: 
 github_username: alexrohleder96
-disqus_shortname: "alexrohleder"
+disqus_shortname: alexrohlederblog
 
 # Build settings
 markdown: kramdown
