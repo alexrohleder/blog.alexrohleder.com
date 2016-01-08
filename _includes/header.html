@@ -4,15 +4,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="author" content="Alex Rohleder">
 
-	<title>{{ page.title + ' - ' }} Alex Rohleder | Blog</title>
-
 	{% if page.id %}
+		<title>{{ page.title }}</title>
 		<meta property="og:type" content="article">
 		<meta property="article:author" content="Alex Rohleder">
 		<meta property="article:section" content="{{ page.categories | join ', ' }}">
 		<meta property="article:tag" content="{{ page.keywords }}">
 		<meta property="og:image" content="{{ page.image | prepend: site.baseurl }}">
 	{% else %}
+		<title>Alex Rohleder | Blog</title>
 		<meta property="og:type" content="website">
 		<meta property="og:image" content="https://www.alexrohleder.com.br/img/favicon/512.jpg">
 	{% endif %}
