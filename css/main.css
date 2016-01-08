@@ -2944,10 +2944,6 @@
 
 /* Header */
 
-	body {
-		padding-top: 3.5em;
-	}
-
 	#header {
 		display: -moz-flex;
 		display: -webkit-flex;
