@@ -4,7 +4,7 @@ title      : Singleline Form
 date       : 2016-01-09 00:11:01
 categories : javascript html css sass
 tags       : javascript html css sass
-image      : /content/2016/singleline-form/post.png
+image      : /content/2016/singleline-form/thumbnail.png
 preview    : /content/2016/singleline-form/index.html
 download   : /content/2016/singleline-form/singleline-form.zip
 comments   : true
