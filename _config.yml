@@ -3,9 +3,9 @@
 title: Alex Rohleder - Blog
 email: contato@alexrohleder.com.br
 description: >
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
+  Desenvolver é o que eu faço, e sempre farei! Não há como negar, até em casa 
+  descanço desenvolvendo projetos pessoais, esta é e sempre será a minha área, 
+  trabalho com meu hobbie, não há como não fazer mal o que faz com vontade!
 baseurl: ""
 url: "https://blog.alexrohleder.com.br"
 twitter_username: 
@@ -14,6 +14,9 @@ disqus_shortname: alexrohlederblog
 
 # Build settings
 markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 paginate: 4
 author: Alex Rohleder
 permalink: /:year/:title/
