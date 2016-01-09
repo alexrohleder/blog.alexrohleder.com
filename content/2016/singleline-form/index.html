@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf8">
+        <title>Minimal Form Interface</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:700|Work+Sans:300,400,500,600|Satisfy">
+        <link rel="stylesheet" href="css/form.css">
+        <link rel="stylesheet" href="css/example.css">
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="js/vendor/modernizr.js"></script>
+        <script src="js/form.js"></script>
+    </head>
+    <body>
+
+        <h2>Entre em</h2>
+        <h1>Contato</h1>
+        <h3></h3>
+
+        <form class="ar-form" novalidate autocomplete="off">
+        
+            <ol class="questions">
+                <li class="question current">
+                    <!-- <label for="message">Qual seu nome?</label> -->
+                    <input type="text" name="name" id="name" placeholder="qual seu nome?" required>
+                </li>
+                <li class="question">
+                    <!-- <label for="email">E seu Email?</label> -->
+                    <input type="email" name="email" id="email" placeholder="e seu e-mail?" required>
+                </li>
+                <li class="question">
+                    <!-- <label for="message">Então.. o que deseja?</label> -->
+                    <input type="text" name="message" id="message" placeholder="então.. o que deseja?" required>
+                </li>
+            </ol>
+
+            <button class="next"><div class="arrow"></div></button>
+
+            <div class="progress"><div class="progress-bar"></div></div>
+            <div class="error">&nbsp;</div>
+            <div class="count"><span class="itr">1</span>/<span class="total">1</span></div>
+
+        </form>
+
+        <script>
+            $(function () {
+
+                /**
+                 * Initializing the contact form and defining the logic
+                 * for the submit, here you can define an ajax for example.
+                 */
+
+                $('form').form({
+                    submit: function () {
+
+                        /**
+                         * using an example implementation, fully functional
+                         * you only need an api token from https://mandrilapp.com
+                         */
+
+                        sendEmailWithMandril({
+                            name    : $('#name').val(),
+                            email   : $('#email').val(),
+                            message : $('#message').val()
+                        });
+
+                        /**
+                         * Showing a success message for the user
+                         */
+
+                        $('form').fadeOut({
+                            complete: function () {
+                                $('h3').html('OBRIGADO! LOGO ENTRAREI EM CONTATO :)').fadeIn();
+                            }
+                        });
+
+                        /**
+                         * Don't forget to change the indicated values
+                         * the email can be writen directly in html.
+                         */
+
+                        function sendEmailWithMandril(data) {
+                            $.post('https://mandrillapp.com/api/1.0/messages/send.json', {
+                                key: 'yourmandrilappkey',
+                                message: {
+                                    autotext: 'true',
+                                    subject: data.name + ' got in touch',
+                                    from_email: data.email,
+                                    html: '<p>' + data.name + ' <b>' + data.email + '</b></p><p>' + data.message + '</p>',
+                                    to: [{
+                                        email: 'youremail@mail.com',
+                                        name : 'yourname',
+                                        type : 'to'
+                                    }]
+                                }
+                            })
+                        }
+
+                    }
+                })
+
+            });
+        </script>
+    </body>
+</html>
