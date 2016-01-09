@@ -5,6 +5,8 @@ date       : 2016-01-09 00:11:01
 categories : javascript html css sass
 tags       : javascript html css sass
 image      : /images/singleline-form.png
+preview    : /
+download   : /
 comments   : true
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu odio luctus urna semper commodo ac bibendum lectus. Etiam finibus iaculis dui, in venenatis dui ultrices in. Quisque lorem elit, feugiat eget placerat et, venenatis vel ex. Pellentesque consectetur tempor erat. Sed efficitur lacinia mauris sit amet ultrices. Praesent rhoncus tincidunt tortor at mattis. Curabitur sit amet faucibus risus. Morbi ultrices leo dolor. Proin sodales nulla eget condimentum interdum. Donec rhoncus libero nec orci dapibus imperdiet. Aenean vulputate egestas justo quis condimentum. Aliquam ac tincidunt quam. Cras et gravida massa. In maximus turpis neque, eu egestas elit ullamcorper quis.
