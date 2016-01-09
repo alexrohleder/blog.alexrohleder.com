@@ -15,7 +15,7 @@ layout: main
     {% if post.image %}
         <a href="{{ post.url }}" class="image featured"><img src="{{post.image}}" alt=""></a>
     {% endif %}
-    <p>{{ post.content | strip_html | truncatewords: 120 }}...</p>
+    <p>{{ post.content | strip_html | truncatewords: 120 }}</p>
     <footer>
         <ul class="actions">
             <li><a href="{{ post.url }}" class="button big">Continar Lendo</a></li>
