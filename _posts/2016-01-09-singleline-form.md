@@ -11,7 +11,7 @@ comments          : true
 excerpt_separator : <!-- more -->
 ---
 
-Hoje gostaria de compartilhar o formulário que utilizo na (homepage do meu site)[https://www.alexrohleder.com.br], é uma adaptação do post (minimal form interface)[http://tympanus.net/codrops/2014/04/01/minimal-form-interface/] do (codrops)[http://tympanus.net/codrops]. Um formulário extremamente simples que mostra apenas um campo por vêz que em sua versão disponibilizada pelo codrops requer a utilização da biblioteca deles, com um javascript e css grandes*(e charopes de adaptar)* perante a real necessidade. Por isto acabei por fazer esta versão com um código mais simples e com versões em SASS e utilizando jQuery!
+Hoje gostaria de compartilhar o formulário que utilizo na <a href="https://www.alexrohleder.com.br">homepage do meu site</a>, é uma adaptação do post <a href="http://tympanus.net/codrops/2014/04/01/minimal-form-interface/">minimal form interface</a> do <a href="http://tympanus.net/codrops">codrops</a>. Um formulário extremamente simples que mostra apenas um campo por vêz que em sua versão disponibilizada pelo codrops requer a utilização da biblioteca deles, com um javascript e css grandes<strike>(e charopes de adaptar)</strike> perante a real necessidade. Por isto acabei por fazer esta versão com um código mais simples e com versões em SASS e utilizando jQuery!
 <!-- more -->
 A ideia do formulário é ser simples não ocupando espaço e utilizando apenas os elementos necessários, sem nenhuma distração! A marcação dele segue o mesmo princípio, simplicidade.
 
@@ -32,7 +32,7 @@ A ideia do formulário é ser simples não ocupando espaço e utilizando apenas 
 </form>
 {% endhighlight %}
 
-Para inicializar o formulário basta utilizar o plugin do jQuery no formulário, o plugin recebe como argumento um json que pode conter as funções de **submit**, **error** e **validate**. As funções **error** e **validate** já possuem uma definição padrão que utiliza apis do navegador para fazer seu trabalho, já a **submit** deve ser implementada pelo usuário, ela executa a lógica após o submit do formulário.
+Para inicializar o formulário basta utilizar o plugin do jQuery no formulário, o plugin recebe como argumento um json que pode conter as funções de <b>submit</b>, <b>error</b> e <b>validate</b>. As funções <b>error</b> e <b>validate</b> já possuem uma definição padrão que utiliza apis do navegador para fazer seu trabalho, já a <b>submit</b> deve ser implementada pelo usuário, ela executa a lógica após o submit do formulário.
 
 {% highlight js %}
 $('form').form({
@@ -43,11 +43,7 @@ $('form').form({
 })
 {% endhighlight %}
 
-Eu em meu site utilizei este formulário para enviar um e-mail do usuário para min, tudo através do javascript! Para isto criei uma conta no (mandrill app)[https://mandrillapp.com/], e peguei minha **API key**.
-
-![Pegando api key no mandrillapp]({{ site.url }}/content/2016/singleline-form/mandrillapp-key.jpg)
-
-Após isso você pode utilizar sua key para enviar 2000 emails por mês gratuítamente! Segue o javascript utilizado para tanto, basta alterar as partes indicadas:
+Eu em meu site utilizei este formulário para enviar um e-mail do usuário para min, tudo através do javascript! Para isto criei uma conta no <a href="https://mandrillapp.com/">mandrill app</a>, e peguei minha <b>API key</b>. Após isso você pode utilizar sua key para **enviar 2000 emails por mês gratuítamente**! Segue o javascript utilizado para tanto, basta alterar as partes indicadas:
 
 {% highlight js %}
 $('form').form({
@@ -100,4 +96,4 @@ $('form').form({
 });
 {% endhighlight %}
 
-Para mais informações e configurações de email do mandrill acesse a documentação (neste link)[https://mandrillapp.com/api/docs/messages.JSON.html#method-send]. Bom era isto, espero que tenha lhe inspirado e ajudado, serei muito grato por qualquer sugestão e atenderei a qualquer dúvida sobre o post com prazer!
+Para mais informações e configurações de email do mandrill acesse a documentação <a href="https://mandrillapp.com/api/docs/messages.JSON.html#method-send">neste link</a>. Bom era isto, espero que tenha lhe inspirado e ajudado, serei muito grato por qualquer sugestão e atenderei a qualquer dúvida sobre o post com prazer!
