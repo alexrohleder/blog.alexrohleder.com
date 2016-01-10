@@ -11,18 +11,93 @@ comments          : true
 excerpt_separator : <!-- more -->
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eu odio luctus urna semper commodo ac bibendum lectus. Etiam finibus iaculis dui, in venenatis dui ultrices in. Quisque lorem elit, feugiat eget placerat et, venenatis vel ex. Pellentesque consectetur tempor erat. Sed efficitur lacinia mauris sit amet ultrices. Praesent rhoncus tincidunt tortor at mattis. Curabitur sit amet faucibus risus. Morbi ultrices leo dolor. Proin sodales nulla eget condimentum interdum. Donec rhoncus libero nec orci dapibus imperdiet. Aenean vulputate egestas justo quis condimentum. Aliquam ac tincidunt quam. Cras et gravida massa. In maximus turpis neque, eu egestas elit ullamcorper quis.
+Hoje gostaria de compartilhar o formulário que utilizo na (homepage do meu site)[https://www.alexrohleder.com.br], é uma adaptação do post (minimal form interface)[http://tympanus.net/codrops/2014/04/01/minimal-form-interface/] do (codrops)[http://tympanus.net/codrops]. Um formulário extremamente simples que mostra apenas um campo por vêz que em sua versão disponibilizada pelo codrops requer a utilização da biblioteca deles, com um javascript e css grandes*(e charopes de adaptar)* perante a real necessidade. Por isto acabei por fazer esta versão com um código mais simples e com versões em SASS e utilizando jQuery!
 <!-- more -->
-In in varius erat. In blandit diam eleifend quam gravida, et lacinia mi consectetur. Ut non feugiat odio. Nullam consectetur interdum facilisis. Curabitur venenatis consectetur elit tristique sollicitudin. Nunc dictum fermentum ligula, vitae hendrerit ex blandit ut. Aenean in interdum orci. Etiam metus neque, mollis et elit vel, gravida ullamcorper leo. Fusce tempor aliquet mi, vel malesuada ante. Donec condimentum nisl sit amet libero fringilla, ut pellentesque elit egestas. Praesent ornare nunc tortor, sit amet elementum elit sodales nec. In sollicitudin, risus pharetra placerat pellentesque, dui nulla finibus sapien, in finibus sem sem sed ex. Quisque et arcu facilisis, varius orci sed, sollicitudin risus. Aenean a massa ligula.
+A ideia do formulário é ser simples não ocupando espaço e utilizando apenas os elementos necessários, sem nenhuma distração! A marcação dele segue o mesmo princípio, simplicidade.
 
-Curabitur a varius orci. Sed lorem sapien, congue ac felis et, hendrerit interdum ligula. Pellentesque sagittis at velit quis tincidunt. Fusce eu eleifend tortor, nec iaculis risus. Proin convallis blandit condimentum. Mauris vestibulum accumsan eros tincidunt elementum. Pellentesque ullamcorper dapibus fermentum. Morbi tristique arcu ut tortor pulvinar placerat. Aenean laoreet velit egestas elit finibus commodo. Duis malesuada vehicula tempus. Nullam tristique mauris mauris, scelerisque aliquam nisl sollicitudin at. Integer mollis sed ipsum eget blandit. Proin lacus enim, euismod eget vehicula at, efficitur eget neque. Integer purus nisl, vulputate eget nibh eget, ornare iaculis elit. Morbi convallis fermentum nunc a euismod.
-
-{% highlight ruby %}
-def show
-  @widget = Widget(params[:id])
-  respond_to do |format|
-    format.html # show.html.erb
-    format.json { render json: @widget }
-  end
-end
+{% highlight html %}
+<form novalidate autocomplete="off" class="ar-form">
+	<ol class="questions">
+		<!-- lista de questões, note que só a primeira tem a class current -->
+		<li class="question current">
+			<!-- também é possível incluir labels -->
+			<!-- <label for="name">Qual seu nome?</label> -->
+			<input type="text" id="name" placeholder="Qual o seu nome?" required>
+		</li>
+	</ol>
+	<div class="next"><div class="arrow"></div></div>
+	<div class="progress"><div class="progress-bar"></div></div>
+	<div class="error"></div>
+	<div class="count"><span class="itr">1</span>/<span class="total">1</span></div>
+</form>
 {% endhighlight %}
+
+Para inicializar o formulário basta utilizar o plugin do jQuery no formulário, o plugin recebe como argumento um json que pode conter as funções de **submit**, **error** e **validate**. As funções **error** e **validate** já possuem uma definição padrão que utiliza apis do navegador para fazer seu trabalho, já a **submit** deve ser implementada pelo usuário, ela executa a lógica após o submit do formulário.
+
+{% highlight js %}
+$('form').form({
+	submit: function () {
+		// lógica pós submit do formulário.
+		// ex. envio via ajax para o servidor.
+	}
+})
+{% endhighlight %}
+
+Eu em meu site utilizei este formulário para enviar um e-mail do usuário para min, tudo através do javascript! Para isto criei uma conta no (mandrill app)[https://mandrillapp.com/], e peguei minha **API key**.
+
+![Pegando api key no mandrillapp]({{ site.url }}/content/2016/singleline-form/mandrillapp-key.jpg)
+
+Após isso você pode utilizar sua key para enviar 2000 emails por mês gratuítamente! Segue o javascript utilizado para tanto, basta alterar as partes indicadas:
+
+{% highlight js %}
+$('form').form({
+	submit: function () {
+		
+		/**
+		 * Passando os dados do formulário, que no caso contem
+		 * três campos para a função que envia o e-mail
+		 */
+		
+		sendEmailWithMandril({
+            name    : $('#name').val(),
+            email   : $('#email').val(),
+            message : $('#message').val()
+        });
+
+        /**
+         * Após o envio do e-mail o formulário é ocultado
+         * e uma mensagem de sucesso é exibida.
+         */
+
+        $('form').fadeOut({
+            complete: function () {
+            	$('h3').html('OBRIGADO! LOGO ENTRAREI EM CONTATO :)').fadeIn();
+            }
+        });
+
+        /**
+         * O email pode ser escrito diretamente em html, usando os
+         * dados do formulário.
+         */
+
+		function sendEmailWithMandril(data) {
+            $.post('https://mandrillapp.com/api/1.0/messages/send.json', {
+                key: 'your_mandrilapp_key',
+                message: {
+                    autotext: 'true',
+                    subject: data.name + ' got in touch',
+                    from_email: data.email,
+                    html: '<p>' + data.name + ' <b>' + data.email + '</b></p><p>' + data.message + '</p>',
+                    to: [{
+                        email: 'your_email@mail.com',
+                        name : 'your_name',
+                        type : 'to'
+                    }]
+                }
+            })
+        }
+	}
+});
+{% endhighlight %}
+
+Para mais informações e configurações de email do mandrill acesse a documentação (neste link)[https://mandrillapp.com/api/docs/messages.JSON.html#method-send]. Bom era isto, espero que tenha lhe inspirado e ajudado, serei muito grato por qualquer sugestão e atenderei a qualquer dúvida sobre o post com prazer!
