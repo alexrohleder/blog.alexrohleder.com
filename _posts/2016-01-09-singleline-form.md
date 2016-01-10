@@ -83,7 +83,10 @@ $('form').form({
                     autotext: 'true',
                     subject: data.name + ' got in touch',
                     from_email: data.email,
-                    html: '<p>' + data.name + ' <b>' + data.email + '</b></p><p>' + data.message + '</p>',
+                    html: 
+                        '<p>' + data.name + ' ' +
+                        '<b>' + data.email + '</b></p>' + 
+                        '<p>' + data.message + '</p>',
                     to: [{
                         email: 'your_email@mail.com',
                         name : 'your_name',
