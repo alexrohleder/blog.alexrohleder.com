@@ -11,7 +11,7 @@ comments          : true
 excerpt_separator : <!-- more -->
 ---
 
-Hoje gostaria de compartilhar o formulário que utilizo na <a href="https://www.alexrohleder.com.br">homepage do meu site</a>, é uma adaptação do post <a href="http://tympanus.net/codrops/2014/04/01/minimal-form-interface/">minimal form interface</a> do <a href="http://tympanus.net/codrops">codrops</a>. Um formulário extremamente simples que mostra apenas um campo por vêz que em sua versão disponibilizada pelo codrops requer a utilização da biblioteca deles, com um javascript e css grandes<strike>(e charopes de adaptar)</strike> perante a real necessidade. Por isto acabei por fazer esta versão com um código mais simples e com versões em SASS e utilizando jQuery!
+Hoje gostaria de compartilhar o formulário que utilizo na <a href="https://www.alexrohleder.com.br">homepage do meu site</a>, é uma adaptação do post <a href="http://tympanus.net/codrops/2014/04/01/minimal-form-interface/">minimal form interface</a> do <a href="http://tympanus.net/codrops">codrops</a>. Um formulário extremamente simples que mostra apenas um campo por vêz que em sua versão disponibilizada pelo codrops requer a utilização da biblioteca deles, com um javascript e css grandes<strike>(e charopes de adaptar)</strike> perante a real necessidade. Por isto acabei por fazer esta versão com um código mais simples e com versões em <b>SASS</b> e utilizando <b>jQuery</b>!
 <!-- more -->
 A ideia do formulário é ser simples não ocupando espaço e utilizando apenas os elementos necessários, sem nenhuma distração! A marcação dele segue o mesmo princípio, simplicidade.
 
