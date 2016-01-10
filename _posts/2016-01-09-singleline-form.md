@@ -17,18 +17,18 @@ A ideia do formulário é ser simples não ocupando espaço e utilizando apenas 
 
 {% highlight html %}
 <form novalidate autocomplete="off" class="ar-form">
-	<ol class="questions">
-		<!-- lista de questões, note que só a primeira tem a class current -->
-		<li class="question current">
-			<!-- também é possível incluir labels -->
-			<!-- <label for="name">Qual seu nome?</label> -->
-			<input type="text" id="name" placeholder="Qual o seu nome?" required>
-		</li>
-	</ol>
-	<div class="next"><div class="arrow"></div></div>
-	<div class="progress"><div class="progress-bar"></div></div>
-	<div class="error"></div>
-	<div class="count"><span class="itr">1</span>/<span class="total">1</span></div>
+    <ol class="questions">
+        <!-- lista de questões, note que só a primeira tem a class current -->
+        <li class="question current">
+            <!-- também é possível incluir labels -->
+            <!-- <label for="name">Qual seu nome?</label> -->
+            <input type="text" id="name" placeholder="Qual o seu nome?" required>
+        </li>
+    </ol>
+    <div class="next"><div class="arrow"></div></div>
+    <div class="progress"><div class="progress-bar"></div></div>
+    <div class="error"></div>
+    <div class="count"><span class="itr">1</span>/<span class="total">1</span></div>
 </form>
 {% endhighlight %}
 
@@ -36,10 +36,10 @@ Para inicializar o formulário basta utilizar o plugin do jQuery no formulário,
 
 {% highlight js %}
 $('form').form({
-	submit: function () {
-		// lógica pós submit do formulário.
-		// ex. envio via ajax para o servidor.
-	}
+    submit: function () {
+        // lógica pós submit do formulário.
+        // ex. envio via ajax para o servidor.
+    }
 })
 {% endhighlight %}
 
@@ -51,14 +51,14 @@ Após isso você pode utilizar sua key para enviar 2000 emails por mês gratuít
 
 {% highlight js %}
 $('form').form({
-	submit: function () {
-		
-		/**
-		 * Passando os dados do formulário, que no caso contem
-		 * três campos para a função que envia o e-mail
-		 */
-		
-		sendEmailWithMandril({
+    submit: function () {
+        
+        /**
+         * Passando os dados do formulário, que no caso contem
+         * três campos para a função que envia o e-mail
+         */
+        
+        sendEmailWithMandril({
             name    : $('#name').val(),
             email   : $('#email').val(),
             message : $('#message').val()
@@ -71,7 +71,7 @@ $('form').form({
 
         $('form').fadeOut({
             complete: function () {
-            	$('h3').html('OBRIGADO! LOGO ENTRAREI EM CONTATO :)').fadeIn();
+                $('h3').html('OBRIGADO! LOGO ENTRAREI EM CONTATO :)').fadeIn();
             }
         });
 
@@ -80,7 +80,7 @@ $('form').form({
          * dados do formulário.
          */
 
-		function sendEmailWithMandril(data) {
+        function sendEmailWithMandril(data) {
             $.post('https://mandrillapp.com/api/1.0/messages/send.json', {
                 key: 'your_mandrilapp_key',
                 message: {
@@ -96,7 +96,7 @@ $('form').form({
                 }
             })
         }
-	}
+    }
 });
 {% endhighlight %}
 
