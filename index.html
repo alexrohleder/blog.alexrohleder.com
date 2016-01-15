@@ -1,30 +1,49 @@
 ---
-layout: main
+layout: master
 ---
 
-{% for post in paginator.posts %}
-<article class="post">
-    <header>
-        <div class="title">
-            <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-            <p>
-                Postado <time class="published" datetime="{{ post.date | date: "%F" }}">{{ post.date | date: "%d/%m/%Y" }}</time> em {% for category in post.categories limit:1 %} <a href="#">{{ category }}</a> {% endfor %}
-            </p>
-        </div>
-    </header>
-    {% if post.image %}
-        <a href="{{ post.url }}" class="image featured"><img src="{{post.image}}" alt=""></a>
-    {% endif %}
-    <p>{{ post.content | strip_html | truncatewords: 120 }}</p>
-    <footer>
-        <ul class="actions">
-            <li><a href="{{ post.url }}" class="button big">Continar Lendo</a></li>
-        </ul>
-        <ul class="stats">
-            {% for tag in post.tags limit:3 %}
+<main id="main">
+    {% for post in paginator.posts %}
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
+                <p>Postado <time class="published" datetime="{{ post.date | date: "%F" }}">{{ post.date | date: "%d/%m/%Y" }}</time> em {% for category in post.categories limit:1 %} <a href="#">{{ category }}</a> {% endfor %} por <a href="https://www.alexrohleder.com.br">Alex Rohleder</a>.</p>
+            </div>
+        </header>
+        {% if post.image %}
+        <a href="{{ post.url }}" class="image featured"><img src="{{ post.image }}" alt=""></a>
+        {% endif %}
+        <p>{{ post.content | strip_html | truncatewords: 120 }}</p>
+        <footer>
+            <ul class="actions">
+                <li><a href="{{ post.url | prepend: site.baseurl }}" class="button big">Continuar Lendo</a></li>
+            </ul>
+            <ul class="stats">
+                {% for tag in post.tags limit:3 %}
                 <li><a href="#">{{ tag }}</a></li>
-            {% endfor %}
-        </ul>
-    </footer>
-</article>
-{% endfor %}
+                {% endfor %}
+            </ul>
+        </footer>
+    </article>
+    {% endfor %}
+    <ul class="actions pagination">
+        {% if paginator.previous_page %}
+        <li><a href="{{ paginator.previous_page_path }}" class="button big previous">Página Anterior</a></li>
+        {% else %}
+        <li><a href="#" class="disabled button big previous">Página Anterior</a></li>
+        {% endif %}
+        <li>{{ paginator.page }} / {{ paginator.total_pages }}</li>
+        {% if paginator.next_page %}
+        <li><a href="{{ paginator.next_page_path }}" class="button big next">Próxima Página</a></li>
+        {% else %}
+        <li><a href="#" class="disabled button big next">Próxima Página</a></li>
+        {% endif %}
+    </ul>
+</main>
+<aside id="sidebar">
+    {% include aside.intro.html %}
+    {% include aside.miniposts.html %}
+    {% include aside.about.html %}
+    {% include aside.footer.html %}
+</aside>

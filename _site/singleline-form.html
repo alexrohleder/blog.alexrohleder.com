@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<base href="/blog/_site">
+
+		<meta charset="utf-8">
+	  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Alex Rohleder">
+
+		
+		<title>Singleline Form</title>
+		<meta property="og:type" content="article">
+		<meta property="article:author" content="Alex Rohleder">
+		<meta property="article:section" content="javascript html css sass">
+		<meta property="article:tag" content="">
+		<meta property="og:image" content="/blog/_sitersrc/singleline-form/thumbnail.jpg">
+		<meta property="og:url" content="/singleline-form.html">
+		
+
+		<meta property="og:site_name" content="Blog do Alex Rohleder">
+		<meta property="og:locale" content="pt_BR">
+
+		
+		
+
+
+		  <!--[if lte IE 8]><script src="/blog/_sitejs/ie/html5shiv.js"></script><![endif]-->
+		  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Raleway:400,800,900">
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		  <link rel="stylesheet" href="/blog/_site/css/main.css">
+		  <!--[if lte IE 9]><link rel="stylesheet" href="/blog/_siteassets/css/ie9.css" /><![endif]-->
+		  <!--[if lte IE 8]><link rel="stylesheet" href="/blog/_siteassets/css/ie8.css" /><![endif]-->
+	</head>
+    <body>
+    	<div id="wrapper">
+			<main id="main">
+	<article class="post">
+        <header>
+            <div class="title">
+                <h2><a href="/blog/_site/singleline-form.html">Singleline Form</a></h2>
+                <p>Postado <time class="published" datetime="2016-01-09">09/01/2016</time> em  por <a href="https://www.alexrohleder.com.br">Alex Rohleder</a>.</p>
+            </div>
+        </header>
+        
+        <a href="/singleline-form.html" class="image featured"><img src="rsrc/singleline-form/thumbnail.jpg" alt=""></a>
+        
+        
+        <a href="rsrc/singleline-form/index.html" class="button big" style="margin: 0 1.5em 3em 0">preview</a>
+        
+        
+        <a href="rsrc/singleline-form/singleline-form.zip" class="button big" style="margin: 0 1.5em 3em 0">download</a>
+        
+        
+        <p>Recebi alguns feedbacks positivos sobre o formulário do <a href="https://www.alexrohleder.com.br">meu site pessoal</a>, e hoje como o primeiro post do blog gostaria de compartilhar esta adaptação do <a href="http://tympanus.net/codrops/2014/04/01/minimal-form-interface/">minimal form interface</a> produzido pelo <a href="http://tympanus.net/codrops">codrops</a>. A ideia principal é que o formulário seja extremamente simples e livre de distrações, ele se encaixa muito bem com várias interfaces exibindo apenas um campo de cada vez!</p>
+
+<p>A versão disponibilizada pelo codrops requer a utilização de uma micro biblioteca produzida pelo mesmo, o que me deixou encomodado confesso, e seu código fonte não era tão simples de ser refatorado para seguir as condições do meu site. Por isto optei por desenvolver uma nova versão com vários hooks para facilitar a extenção e aproveitei para simplificar o código utilizando jQuery. Há e além do CSS agora tem SASS!</p>
+
+<p>A baixo um exemplo de marcação do formulário, nada de muito complicado porém note os atributos da tag form, novalidate diz ao navegador que o plugin ira lidar com as validações do formulário, e ele faz isso por padrão usando o navegador hehe, então qualquer atributo de validação nos campos será identificado, no exemplo a baixo o atributo required foi usado.</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;form</span> <span class="na">novalidate</span> <span class="na">autocomplete=</span><span class="s">"off"</span> <span class="na">class=</span><span class="s">"ar-form"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;ol</span> <span class="na">class=</span><span class="s">"questions"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- lista de questões, note que só a primeira tem a class current --&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"question current"</span><span class="nt">&gt;</span>
+            <span class="c">&lt;!-- também é possível incluir labels --&gt;</span>
+            <span class="c">&lt;!-- &lt;label for="name"&gt;Qual seu nome?&lt;/label&gt; --&gt;</span>
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">id=</span><span class="s">"name"</span> <span class="na">placeholder=</span><span class="s">"Qual o seu nome?"</span> <span class="na">required</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ol&gt;</span>
+    <span class="c">&lt;!-- Marcação necessária para os controles do formulário, mantenha a mesma ordem! --&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"next"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"arrow"</span><span class="nt">&gt;&lt;/div&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"progress"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"progress-bar"</span><span class="nt">&gt;&lt;/div&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"error"</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"count"</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">"itr"</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;</span>/<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"total"</span><span class="nt">&gt;</span>1<span class="nt">&lt;/span&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/form&gt;</span></code></pre></figure>
+
+<p>Depois disto é necessário inicializar o formulário definindo uma função de submit para ele. O plugin também suporta a definição de funções de erro e validação, que respectivamente retornam uma string e um boolean, e são auto explicativas. Elas já possuem uma definição padrão que assim como dito utiliza a API do navegador do usuário para validar e gerar uma mensagem de erro.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">form</span><span class="p">({</span>
+    <span class="na">submit</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// lógica pós submit do formulário.
+</span>
+    <span class="p">},</span>
+
+    <span class="c1">// Os parametros a seguir são opcionais.
+</span>
+    <span class="c1">// E ambos recebem um campo como argumento.
+</span>
+
+    <span class="na">validate</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// valida um campo
+</span>
+    <span class="p">},</span>
+    <span class="na">error</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// gera uma mensagem de erro de validação
+</span>
+    <span class="p">}</span>
+<span class="p">})</span></code></pre></figure>
+
+<p>Em <a href="https://www.alexrohleder.com.br">meu site pessoal</a> utilizo o formulário como uma forma de contato direto, onde quando submetido um e-mail é enviado para min contendo os dados dos campos. Para tanto utilizei o <a href="https://mandrillapp.com">Mandrill App</a> um ótimo serviço de envio de e-mails gratuitos com uma API em javascript! Segue o script que utilizei para o envio, você irá precisar de uma API Key do mandrill, para conseguila basta criar uma conta e gerar uma nova API Key. Apenas altere as partes indicadas com seus dados:</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">form</span><span class="p">({</span>
+    <span class="na">submit</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        
+        <span class="cm">/**
+         * Passando os dados do formulário, que no caso contem
+         * três campos para a função que envia o e-mail
+         */</span>
+        
+        <span class="nx">sendEmailWithMandril</span><span class="p">({</span>
+            <span class="na">name</span>    <span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#name'</span><span class="p">).</span><span class="nx">val</span><span class="p">(),</span>
+            <span class="na">email</span>   <span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#email'</span><span class="p">).</span><span class="nx">val</span><span class="p">(),</span>
+            <span class="na">message</span> <span class="p">:</span> <span class="nx">$</span><span class="p">(</span><span class="s1">'#message'</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
+        <span class="p">});</span>
+
+        <span class="cm">/**
+         * Após o envio do e-mail o formulário é ocultado
+         * e uma mensagem de sucesso é exibida.
+         */</span>
+
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">fadeOut</span><span class="p">({</span>
+            <span class="na">complete</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="nx">$</span><span class="p">(</span><span class="s1">'h3'</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="s1">'OBRIGADO! LOGO ENTRAREI EM CONTATO :)'</span><span class="p">).</span><span class="nx">fadeIn</span><span class="p">();</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+
+        <span class="cm">/**
+         * O email pode ser escrito diretamente em html, usando os
+         * dados do formulário.
+         */</span>
+
+        <span class="kd">function</span> <span class="nx">sendEmailWithMandril</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s1">'https://mandrillapp.com/api/1.0/messages/send.json'</span><span class="p">,</span> <span class="p">{</span>
+                <span class="na">key</span><span class="p">:</span> <span class="s1">'your_mandrill_key'</span><span class="p">,</span>
+                <span class="na">message</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="na">autotext</span><span class="p">:</span> <span class="s1">'true'</span><span class="p">,</span>
+                    <span class="na">subject</span><span class="p">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">name</span> <span class="o">+</span> <span class="s1">', através do formulário de contato'</span><span class="p">,</span>
+                    <span class="na">from_email</span><span class="p">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">email</span><span class="p">,</span>
+                    <span class="na">html</span><span class="p">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span>
+                    <span class="na">to</span><span class="p">:</span> <span class="p">[{</span>
+                        <span class="na">email</span><span class="p">:</span> <span class="s1">'your@mail.com'</span><span class="p">,</span>
+                        <span class="na">name</span> <span class="p">:</span> <span class="s1">'your_name'</span><span class="p">,</span>
+                        <span class="na">type</span> <span class="p">:</span> <span class="s1">'to'</span>
+                    <span class="p">}]</span>
+                <span class="p">}</span>
+            <span class="p">})</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span></code></pre></figure>
+
+<p>Para mais informações e configurações de email do mandrill acesse a documentação <a href="https://mandrillapp.com/api/docs/messages.JSON.html#method-send">neste link</a>. Bom era isto, espero que tenha lhe inspirado e ajudado, serei muito grato por qualquer sugestão e atenderei a qualquer dúvida sobre o post nos comentários!</p>
+
+        <footer>
+        <ul class="stats">
+			
+			<li><a href="#">form</a></li>
+			
+			<li><a href="#">minimalist</a></li>
+			
+			<li><a href="#">simple</a></li>
+			
+        </ul>
+        </footer>
+	</article>
+    
+    <aside id="comments" class="disqus">
+        <div id="disqus_thread"></div>
+        <script>
+            (function() {
+                var d = document, s = d.createElement('script');
+                s.src = '//alexrohlederblog.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+    </aside>
+    <br> <br>
+
+    <ul class="actions pagination">
+        
+            <li><a href="#" class="disabled button big previous">Post Anterior</a></li>
+        
+        
+            <li><a href="/codeburner-router.html" class="button big next">Próximo Post</a></li>
+        
+    </ul>
+</main>
+<aside id="sidebar">
+    <section id="intro">
+    <a href="https://blog.alexrohleder.com.br" class="logo"><img src="img/eu.jpg" alt=""></a>
+    <header>
+        <h2>AlexRohleder</h2>
+        <p>Investindo na Comunidade :)</p>
+    </header>
+</section>
+
+    <section>
+	<div class="mini-posts">
+		
+		<article class="mini-post">
+			<header>
+				<h3><a href="/codeburner-router.html">Codeburner Router</a></h3>
+				<p class="published">Postado <time datetime="2016-01-14">14/01/2016</time> em  <a href="#">php</a> </p>
+			</header>
+			 <a href="/blog/_site/codeburner-router.html" class="image"><img src="rsrc/codeburner-router/thumbnail.png" alt=""></a> 
+		</article>
+		
+		<article class="mini-post">
+			<header>
+				<h3><a href="/singleline-form.html">Singleline Form</a></h3>
+				<p class="published">Postado <time datetime="2016-01-09">09/01/2016</time> em  <a href="#">javascript</a> </p>
+			</header>
+			 <a href="/blog/_site/singleline-form.html" class="image"><img src="rsrc/singleline-form/thumbnail.jpg" alt=""></a> 
+		</article>
+		
+	</div>
+</section>
+
+    <section class="blurb">
+    <h2>Sobre o Autor</h2>
+    <p>Desenvolver é o que eu faço, e sempre farei! Não há como negar, até em casa descanço desenvolvendo projetos pessoais, esta é e sempre será a minha área, trabalho com meu hobbie, não há como não fazer mal o que faz com vontade!</p>
+    <ul class="actions"><li><a href="https://www.alexrohleder.com.br" class="button">Saiba Mais</a></li></ul>
+</section>
+
+    <section id="footer">
+    <ul class="icons">
+        <li><a href="https://github.com/alexrohleder96" class="fa-github"><span class="label">GitHub</span></a></li>
+        <li><a href="/feed.xml" class="fa-rss"><span class="label">RSS</span></a></li>
+        <li><a href="mailto:contato@alexrohleder.com.br" class="fa-envelope"><span class="label">Email</span></a></li>
+    </ul>
+    <p class="copyright">COPYRIGHT © 2016 <a href="https://www.alexrohleder.com.br">Alex Rohleder</a></p>
+</section>
+
+</aside>
+
+    	</div>
+    	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+		<script src="/blog/_site/js/skel.min.js"></script>
+		<script src="/blog/_site/js/util.js"></script>
+		<!--[if lte IE 8]><script src="/blog/_site/assets/js/ie/respond.min.js"></script><![endif]-->
+		<script src="/blog/_site/js/main.js"></script>
+    </body>
+</html>

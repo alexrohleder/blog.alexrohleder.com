@@ -3,17 +3,18 @@ layout            : post
 title             : Singleline Form
 date              : 2016-01-09 00:11:01
 categories        : javascript html css sass
-tags              : javascript html css sass
-image             : /content/2016/singleline-form/thumbnail.jpg
-preview           : /content/2016/singleline-form/index.html
-download          : /content/2016/singleline-form/singleline-form.zip
+tags              : form minimalist simple jquery
+image             : rsrc/singleline-form/thumbnail.jpg
+preview           : rsrc/singleline-form/index.html
+download          : rsrc/singleline-form/singleline-form.zip
 comments          : true
-excerpt_separator : <!-- more -->
 ---
 
-Hoje gostaria de compartilhar o formulário que utilizo na <a href="https://www.alexrohleder.com.br">homepage do meu site</a>, é uma adaptação do post <a href="http://tympanus.net/codrops/2014/04/01/minimal-form-interface/">minimal form interface</a> do <a href="http://tympanus.net/codrops">codrops</a>. Um formulário extremamente simples que mostra apenas um campo por vêz que em sua versão disponibilizada pelo codrops requer a utilização da biblioteca deles, com um javascript e css grandes<strike>(e charopes de adaptar)</strike> perante a real necessidade. Por isto acabei por fazer esta versão com um código mais simples e com versões em <b>SASS</b> e utilizando <b>jQuery</b>!
-<!-- more -->
-A ideia do formulário é ser simples não ocupando espaço e utilizando apenas os elementos necessários, sem nenhuma distração! A marcação dele segue o mesmo princípio, simplicidade.
+Recebi alguns feedbacks positivos sobre o formulário do <a href="https://www.alexrohleder.com.br">meu site pessoal</a>, e hoje como o primeiro post do blog gostaria de compartilhar esta adaptação do <a href="http://tympanus.net/codrops/2014/04/01/minimal-form-interface/">minimal form interface</a> produzido pelo <a href="http://tympanus.net/codrops">codrops</a>. A ideia principal é que o formulário seja extremamente simples e livre de distrações, ele se encaixa muito bem com várias interfaces exibindo apenas um campo de cada vez!
+
+A versão disponibilizada pelo codrops requer a utilização de uma micro biblioteca produzida pelo mesmo, o que me deixou encomodado confesso, e seu código fonte não era tão simples de ser refatorado para seguir as condições do meu site. Por isto optei por desenvolver uma nova versão com vários hooks para facilitar a extenção e aproveitei para simplificar o código utilizando jQuery. Há e além do CSS agora tem SASS!
+
+A baixo um exemplo de marcação do formulário, nada de muito complicado porém note os atributos da tag form, novalidate diz ao navegador que o plugin ira lidar com as validações do formulário, e ele faz isso por padrão usando o navegador hehe, então qualquer atributo de validação nos campos será identificado, no exemplo a baixo o atributo required foi usado.
 
 {% highlight html %}
 <form novalidate autocomplete="off" class="ar-form">
@@ -25,6 +26,7 @@ A ideia do formulário é ser simples não ocupando espaço e utilizando apenas 
             <input type="text" id="name" placeholder="Qual o seu nome?" required>
         </li>
     </ol>
+    <!-- Marcação necessária para os controles do formulário, mantenha a mesma ordem! -->
     <div class="next"><div class="arrow"></div></div>
     <div class="progress"><div class="progress-bar"></div></div>
     <div class="error"></div>
@@ -32,18 +34,27 @@ A ideia do formulário é ser simples não ocupando espaço e utilizando apenas 
 </form>
 {% endhighlight %}
 
-Para inicializar o formulário basta utilizar o plugin do jQuery no formulário, o plugin recebe como argumento um json que pode conter as funções de <b>submit</b>, <b>error</b> e <b>validate</b>. As funções <b>error</b> e <b>validate</b> já possuem uma definição padrão que utiliza apis do navegador para fazer seu trabalho, já a <b>submit</b> deve ser implementada pelo usuário, ela executa a lógica após o submit do formulário.
+Depois disto é necessário inicializar o formulário definindo uma função de submit para ele. O plugin também suporta a definição de funções de erro e validação, que respectivamente retornam uma string e um boolean, e são auto explicativas. Elas já possuem uma definição padrão que assim como dito utiliza a API do navegador do usuário para validar e gerar uma mensagem de erro.
 
 {% highlight js %}
 $('form').form({
     submit: function () {
         // lógica pós submit do formulário.
-        // ex. envio via ajax para o servidor.
+    },
+
+    // Os parametros a seguir são opcionais.
+    // E ambos recebem um campo como argumento.
+
+    validate: function (e) {
+        // valida um campo
+    },
+    error: function (e) {
+        // gera uma mensagem de erro de validação
     }
 })
 {% endhighlight %}
 
-Eu em meu site utilizei este formulário para enviar um e-mail do usuário para min, tudo através do javascript! Para isto criei uma conta no <a href="https://mandrillapp.com/">mandrill app</a>, e peguei minha <b>API key</b>. Após isso você pode utilizar sua key para **enviar 2000 emails por mês gratuítamente**! Segue o javascript utilizado para tanto, basta alterar as partes indicadas:
+Em <a href="https://www.alexrohleder.com.br">meu site pessoal</a> utilizo o formulário como uma forma de contato direto, onde quando submetido um e-mail é enviado para min contendo os dados dos campos. Para tanto utilizei o <a href="https://mandrillapp.com">Mandrill App</a> um ótimo serviço de envio de e-mails gratuitos com uma API em javascript! Segue o script que utilizei para o envio, você irá precisar de uma API Key do mandrill, para conseguila basta criar uma conta e gerar uma nova API Key. Apenas altere as partes indicadas com seus dados:
 
 {% highlight js %}
 $('form').form({
@@ -78,17 +89,14 @@ $('form').form({
 
         function sendEmailWithMandril(data) {
             $.post('https://mandrillapp.com/api/1.0/messages/send.json', {
-                key: 'your_mandrilapp_key',
+                key: 'your_mandrill_key',
                 message: {
                     autotext: 'true',
-                    subject: data.name + ' got in touch',
+                    subject: data.name + ', através do formulário de contato',
                     from_email: data.email,
-                    html: 
-                        '<p>' + data.name + ' ' +
-                        '<b>' + data.email + '</b></p>' + 
-                        '<p>' + data.message + '</p>',
+                    html: data.message,
                     to: [{
-                        email: 'your_email@mail.com',
+                        email: 'your@mail.com',
                         name : 'your_name',
                         type : 'to'
                     }]
@@ -99,4 +107,4 @@ $('form').form({
 });
 {% endhighlight %}
 
-Para mais informações e configurações de email do mandrill acesse a documentação <a href="https://mandrillapp.com/api/docs/messages.JSON.html#method-send">neste link</a>. Bom era isto, espero que tenha lhe inspirado e ajudado, serei muito grato por qualquer sugestão e atenderei a qualquer dúvida sobre o post com prazer!
+Para mais informações e configurações de email do mandrill acesse a documentação <a href="https://mandrillapp.com/api/docs/messages.JSON.html#method-send">neste link</a>. Bom era isto, espero que tenha lhe inspirado e ajudado, serei muito grato por qualquer sugestão e atenderei a qualquer dúvida sobre o post nos comentários!

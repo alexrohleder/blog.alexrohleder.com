@@ -1,0 +1,13 @@
+<section>
+	<div class="mini-posts">
+		{% for post in site.posts limit:4 %}
+		<article class="mini-post">
+			<header>
+				<h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+				<p class="published">Postado <time datetime="{{post.date | date: "%F" }}">{{ post.date | date: "%d/%m/%Y" }}</time> em {% for category in post.categories limit:1 %} <a href="#">{{ category }}</a> {% endfor %}</p>
+			</header>
+			{% if post.image %} <a href="{{ post.url | prepend: site.baseurl }}" class="image"><img src="{{ post.image }}" alt=""></a> {% endif %}
+		</article>
+		{% endfor %}
+	</div>
+</section>

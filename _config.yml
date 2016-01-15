@@ -1,23 +1,15 @@
 
-# Site settings
-title: Alex Rohleder - Blog
-email: contato@alexrohleder.com.br
-description: >
-  Desenvolver é o que eu faço, e sempre farei! Não há como negar, até em casa 
-  descanço desenvolvendo projetos pessoais, esta é e sempre será a minha área, 
-  trabalho com meu hobbie, não há como não fazer mal o que faz com vontade!
-baseurl: ""
-url: "https://blog.alexrohleder.com.br"
-twitter_username: 
-github_username: alexrohleder96
-disqus_shortname: alexrohlederblog
+title   : Alex Rohleder - Investindo na Comunidade :)
+email   : contato@alexrohleder.com.br
+url     : https://blog.alexrohleder.com.br
+baseurl : /blog/_site
 
-# Build settings
-markdown: kramdown
-kramdown:
-  input: GFM
-  syntax_highlighter: rouge
-paginate: 4
-author: Alex Rohleder
-permalink: /:year/:title/
-gems: [jekyll-paginate]
+github_username : alexrohleder96
+disqus_shotname : alexrohlederblog
+
+markdown  : kramdown
+paginate  : 4
+permalink : /:title.html
+gems      : [
+	"jekyll-paginate"
+]
